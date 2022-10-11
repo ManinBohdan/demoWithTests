@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users1")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -19,7 +19,10 @@ public class Employee {
 
     private String name;
     private String country;
+    private String city;
     private String email;
+    private String phoneNumber;
+
 
     public Integer getId() {
         return id;
@@ -53,4 +56,19 @@ public class Employee {
         this.email = email;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }

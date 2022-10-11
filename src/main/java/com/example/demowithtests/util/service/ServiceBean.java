@@ -1,4 +1,4 @@
-package com.example.demowithtests.service;
+package com.example.demowithtests.util.service;
 
 import com.example.demowithtests.domain.Employee;
 import com.example.demowithtests.repository.Repository;
@@ -45,6 +45,8 @@ public class ServiceBean implements Service {
                     entity.setName(employee.getName());
                     entity.setEmail(employee.getEmail());
                     entity.setCountry(employee.getCountry());
+                    entity.setCity(employee.getCity());
+                    entity.setPhoneNumber(employee.getPhoneNumber());
                     return repository.save(entity);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Employee not found with id = " + id));
