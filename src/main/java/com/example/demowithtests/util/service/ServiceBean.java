@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Slf4j
@@ -26,6 +28,10 @@ public class ServiceBean implements Service {
     public List<Employee> getAll() {
         return repository.findAll();
     }
+    @Override
+    public List<Employee> getAllByCountry(String country){
+        return repository.findAllByCountry(country);
+    }
 
     @Override
     public Employee getById(Integer id) {
@@ -36,6 +42,20 @@ public class ServiceBean implements Service {
             throw new EntityNotFoundException("Employee was deleted with id = " + id);
         }*/
         return employee;
+    }
+    @Override
+    public Integer getAmountOfUsersFromSelectedCountry (String country){
+       List <Employee> list = repository.getAmountOfUsersFromSelectedCountry(country);
+       Integer i = 0;
+        for (Employee employee: list) {
+            i++;
+        }
+        return i;
+    }
+
+    @Override
+    public List<Employee> getUsersBySelectedMailSystem(String mailSystem) {
+        return repository.getUsersBySelectedMailSystem(mailSystem);
     }
 
     @Override
@@ -51,6 +71,7 @@ public class ServiceBean implements Service {
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Employee not found with id = " + id));
     }
+
 
     @Override
     public void removeById(Integer id) {

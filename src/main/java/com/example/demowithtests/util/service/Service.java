@@ -9,8 +9,12 @@ public interface Service {
     Employee create(Employee employee);
 
     List<Employee> getAll();
+    List<Employee> getAllByCountry(String country);
 
     Employee getById(Integer id);
+
+    Integer getAmountOfUsersFromSelectedCountry(String country);
+    List<Employee> getUsersBySelectedMailSystem(String mailSystem);
 
     Employee updateById(Integer id, Employee plane);
 

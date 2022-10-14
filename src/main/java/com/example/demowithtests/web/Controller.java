@@ -3,6 +3,7 @@ package com.example.demowithtests.web;
 import com.example.demowithtests.domain.Employee;
 import com.example.demowithtests.util.service.Service;
 import lombok.AllArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -60,4 +61,37 @@ public class Controller {
     public void removeAllUsers() {
         service.removeAll();
     }
+
+    // Получение номера телефона юзера по id
+    @GetMapping("/users/getPhoneById")
+    @ResponseStatus(HttpStatus.OK)
+    public String getPhoneNumberByUserId(@RequestBody Employee employeeBody) {
+       Employee employee = service.getById(employeeBody.getId());
+        return employee.getPhoneNumber();
+    }
+    // Получение юзера по Стране
+    @GetMapping("/users/getUsersByCountry")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Employee> getUsersByHisCountry (@Param("country") String country) {
+        return service.getAllByCountry(country);
+    }
+    // Получение числа юзеров из страны
+    @GetMapping("/users/getAmountOfUsersFromSelectedCountry")
+    @ResponseStatus(HttpStatus.OK)
+    public Integer getAmountOfUsersFromSelectedCountry (@Param("country") String country) {
+        return service.getAmountOfUsersFromSelectedCountry(country);
+    }
+    // Получение юзера с определённой почтовой системой
+    @GetMapping ("/users/getUsersBySelectedMailSys")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Employee> getUsersBySelectedMailSystem (@Param("mailSys") String mailSystem){
+        return service.getUsersBySelectedMailSystem(mailSystem);
+    }
+
+
 }
+
+
+
+
+
