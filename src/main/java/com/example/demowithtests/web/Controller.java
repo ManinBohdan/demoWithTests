@@ -44,7 +44,15 @@ public class Controller {
         EmployeeDTO dto = facade.map(employee, EmployeeDTO.class);
         return dto;
     }
-
+    //Получения юзера по id ------- MapStruct
+    @GetMapping("/users/map/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public EmployeeDTO getEmployeeById2(@PathVariable Integer id) {
+        Employee employee = service.getById(id);
+        EmployeeMapper employeeMapper = EmployeeMapper.INSTANCE;
+        EmployeeDTO employeeDTO = employeeMapper.toDTO(employee);
+        return employeeDTO;
+    }
 
     //Обновление юзера
     @PutMapping("/users/{id}")
