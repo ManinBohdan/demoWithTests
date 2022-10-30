@@ -1,15 +1,19 @@
 package com.example.demowithtests.web;
-
+import com.example.demowithtests.util.mapper.EmployeeMapper;
+import com.example.demowithtests.EmployeeDTO.EmployeeDTO;
 import com.example.demowithtests.domain.Employee;
+import com.example.demowithtests.util.ConfigurationDTO;
 import com.example.demowithtests.util.service.Service;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import ma.glasnost.orika.MapperFacade;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -31,14 +35,16 @@ public class Controller {
         return service.getAll();
     }
 
-    //Получения юзера по id
+    //Получения юзера по id ------- Orika
     @GetMapping("/users/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Employee getEmployeeById(@PathVariable Integer id) {
-
+    public EmployeeDTO getEmployeeById(@PathVariable Integer id) {
+        MapperFacade facade = new ConfigurationDTO();
         Employee employee = service.getById(id);
-        return employee;
+        EmployeeDTO dto = facade.map(employee, EmployeeDTO.class);
+        return dto;
     }
+
 
     //Обновление юзера
     @PutMapping("/users/{id}")
